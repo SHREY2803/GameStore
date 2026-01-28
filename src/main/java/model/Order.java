@@ -1,24 +1,23 @@
 package model;
 
+import java.sql.Timestamp;
+import java.util.List;
+
 public class Order {
 
     private int id;
     private int userId;
+    private Timestamp orderDate;
     private double totalAmount;
     private String status;
 
-    public Order() {}
+    // For display purpose (My Orders)
+    private List<OrderItem> items;
 
-    public Order(int userId, double totalAmount, String status) {
-        this.userId = userId;
-        this.totalAmount = totalAmount;
-        this.status = status;
-    }
-
-    // Getters & Setters
     public int getId() {
         return id;
     }
+
     public void setId(int id) {
         this.id = id;
     }
@@ -26,13 +25,23 @@ public class Order {
     public int getUserId() {
         return userId;
     }
+
     public void setUserId(int userId) {
         this.userId = userId;
+    }
+
+    public Timestamp getOrderDate() {
+        return orderDate;
+    }
+
+    public void setOrderDate(Timestamp orderDate) {
+        this.orderDate = orderDate;
     }
 
     public double getTotalAmount() {
         return totalAmount;
     }
+
     public void setTotalAmount(double totalAmount) {
         this.totalAmount = totalAmount;
     }
@@ -40,7 +49,16 @@ public class Order {
     public String getStatus() {
         return status;
     }
+
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public List<OrderItem> getItems() {
+        return items;
+    }
+
+    public void setItems(List<OrderItem> items) {
+        this.items = items;
     }
 }
