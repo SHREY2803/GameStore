@@ -18,14 +18,14 @@
   <div class="game-grid">
 
     <div class="game-card">
-      <img src="assets/images/game1.jpg">
+      <img src="assets/images/cyber_quest.jpg">
       <h3>Cyber Quest</h3>
       <p>Action • Adventure</p>
       <a href="product-details.jsp" class="btn">View Details</a>
     </div>
 
     <div class="game-card">
-      <img src="assets/images/game2.jpg">
+      <img src="assets/images/shadow_arena.jpg">
       <h3>Shadow Arena</h3>
       <p>Multiplayer • Battle</p>
       <a href="product-details.jsp" class="btn">View Details</a>
