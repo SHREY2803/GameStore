@@ -31,3 +31,4 @@ public class AddToCartServlet extends HttpServlet {
         res.sendRedirect("cart");
 	}
 }
+	
