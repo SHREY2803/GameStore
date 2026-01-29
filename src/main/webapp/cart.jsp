@@ -75,7 +75,7 @@
             <p>Total Amount</p>
             <h2>₹ <%= total %></h2>
 
-            <a class="btn checkout-btn" href="checkout.jsp">
+            <a class="btn checkout-btn" href="checkout">
                 Proceed to Checkout
             </a>
         </div>

@@ -16,15 +16,12 @@ public class OrderDAOImpl implements OrderDAO {
 
 	// 1️. Create order (orders table)
 	@Override
-	public int createOrder(Order order) {
+	public int createOrder(Connection con, Order order) {
 		// TODO Auto-generated method stub
 		int orderId = 0;
 
 		String query = "INSERT INTO orders(user_id, total_amount, status) VALUES (?, ?, ?)";
 
-		Connection con = null;
-		PreparedStatement ps = null;
-		ResultSet rs = null;
 		/*
 		 * In Java Database Connectivity (JDBC), ps.getGeneratedKeys() is a method call
 		 * on a PreparedStatement object (ps) used to retrieve the auto-generated keys
@@ -38,9 +35,7 @@ public class OrderDAOImpl implements OrderDAO {
 		 * typically done by passing the Statement.RETURN_GENERATED_KEYS constant to the
 		 * Connection.prepareStatement() method.
 		 */
-		try {
-			con = DBConnection.getConnection();
-			ps = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+		try (PreparedStatement ps = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
 
 			ps.setInt(1, order.getUserId());
 			ps.setDouble(2, order.getTotalAmount());
@@ -48,24 +43,13 @@ public class OrderDAOImpl implements OrderDAO {
 
 			ps.executeUpdate();
 
-			// Get generated order ID
-			rs = ps.getGeneratedKeys();
+			ResultSet rs = ps.getGeneratedKeys();
 			if (rs.next()) {
 				orderId = rs.getInt(1);
 			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
-		} finally {
-			try {
-				if (rs != null)
-					rs.close();
-				if (ps != null)
-					ps.close();
-				if (con != null)
-					con.close();
-			} catch (Exception e) {
-			}
 		}
 
 		return orderId;
@@ -73,16 +57,19 @@ public class OrderDAOImpl implements OrderDAO {
 
 	// 2️. Insert order items
 	@Override
-	public void addOrderItems(int orderId, List<OrderItem> items) {
+	public void addOrderItems(Connection con, int orderId, List<OrderItem> items) {
 		// TODO Auto-generated method stub
 		String query = "INSERT INTO order_items(order_id, product_id, price, quantity) VALUES (?, ?, ?, ?)";
 
-		Connection con = null;
-		PreparedStatement ps = null;
+		/*
+		 * Why we used executeBatch()? One order can have many items
+		 * 
+		 * Batch insert is faster
+		 * 
+		 * Cleaner JDBC design
+		 */
 
-		try {
-			con = DBConnection.getConnection();
-			ps = con.prepareStatement(query);
+		try (PreparedStatement ps = con.prepareStatement(query)) {
 
 			for (OrderItem item : items) {
 				ps.setInt(1, orderId);
@@ -91,26 +78,10 @@ public class OrderDAOImpl implements OrderDAO {
 				ps.setInt(4, item.getQuantity());
 				ps.addBatch();
 			}
-
 			ps.executeBatch();
-			/*
-			 * Why we used executeBatch()? 
-			 * One order can have many items
-			 * 
-			 * Batch insert is faster
-			 * 
-			 * Cleaner JDBC design
-			 */
+
 		} catch (Exception e) {
 			e.printStackTrace();
-		} finally {
-			try {
-				if (ps != null)
-					ps.close();
-				if (con != null)
-					con.close();
-			} catch (Exception e) {
-			}
 		}
 
 	}
@@ -147,7 +118,36 @@ public class OrderDAOImpl implements OrderDAO {
 	@Override
 	public List<OrderItem> getOrderItems(int orderId) {
 		// TODO Auto-generated method stub
-		return null;
+		List<OrderItem> items = new ArrayList<>();
+
+		String query = """
+				    SELECT oi.*, p.name, p.image_url
+				    FROM order_items oi
+				    JOIN products p ON oi.product_id = p.id
+				    WHERE oi.order_id = ?
+				""";
+
+		try (Connection con = DBConnection.getConnection(); PreparedStatement ps = con.prepareStatement(query)) {
+
+			ps.setInt(1, orderId);
+			ResultSet rs = ps.executeQuery();
+
+			while (rs.next()) {
+				OrderItem item = new OrderItem();
+				item.setId(rs.getInt("id"));
+				item.setOrderId(rs.getInt("order_id"));
+				item.setProductId(rs.getInt("product_id"));
+				item.setPrice(rs.getDouble("price"));
+				item.setQuantity(rs.getInt("quantity"));
+				item.setProductName(rs.getString("name"));
+				item.setImageUrl(rs.getString("image_url"));
+				items.add(item);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return items;
 	}
 
 }

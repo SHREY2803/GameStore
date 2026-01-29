@@ -17,7 +17,7 @@
 
   <p>Your game has been purchased successfully.</p>
 
-  <a href="products.jsp" class="btn">Continue Shopping</a>
+  <a href="products" class="btn">Continue Shopping</a>
 
 </div>
 
