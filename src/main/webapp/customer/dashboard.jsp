@@ -3,26 +3,28 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>User Dashboard</title>
-  <link rel="stylesheet" href="../assets/css/style.css">
+<title>User Dashboard</title>
+<link rel="icon" type="image/png"
+	href="./../assets/images/page_favicon.png">
+<link rel="stylesheet" href="../assets/css/style.css">
 </head>
 
 <body>
 
-<jsp:include page="../components/navbar.jsp" />
+	<jsp:include page="../components/navbar.jsp" />
 
-<div class="container">
+	<div class="container">
 
-  <h2>User Dashboard</h2>
-  <p>Welcome to your account.</p>
+		<h2>User Dashboard</h2>
+		<p>Welcome to your account.</p>
 
-  <a class="btn" href="orders.jsp">My Orders</a>
-  <a class="btn" href="profile.jsp">Profile</a>
-  <a class="btn" href="library.jsp">My Game Library</a>
+		<a class="btn" href="<%= request.getContextPath() %>/my-orders">My Orders</a> <a class="btn"
+			href="profile.jsp">Profile</a> <a class="btn" href="library.jsp">My
+			Game Library</a>
 
-</div>
+	</div>
 
-<jsp:include page="../components/footer.jsp" />
+	<jsp:include page="../components/footer.jsp" />
 
 </body>
 </html>

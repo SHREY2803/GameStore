@@ -7,6 +7,7 @@
 <html>
 <head>
     <title>Your Cart</title>
+    <link rel="icon" type="image/png" href="./assets/images/page_favicon.png">
 
     <!-- IMPORTANT: always use context path -->
     <link rel="stylesheet"

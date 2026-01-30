@@ -6,9 +6,10 @@
 <html>
 <head>
     <title>Checkout</title>
-
+    <link rel="icon" type="image/png" href="./assets/images/page_favicon.png">
     <link rel="stylesheet"
           href="<%= request.getContextPath() %>/assets/css/style.css">
+          
 </head>
 <body>
 

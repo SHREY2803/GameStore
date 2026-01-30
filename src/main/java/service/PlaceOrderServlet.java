@@ -28,15 +28,15 @@ public class PlaceOrderServlet extends HttpServlet {
 
 		int userId = (int) session.getAttribute("userId");
 
-		// 2️⃣ Place order using business layer
-		boolean success = orderManager.placeOrder(userId);
+		// ✅ Create order and get orderId
+        int orderId = orderManager.createOrder(userId);
 
-		// 3️⃣ Redirect based on result
-		if (success) {
-			res.sendRedirect("order-success.jsp");
-		} else {
-			res.sendRedirect("checkout.jsp?error=true");
-		}
+        if (orderId > 0) {
+            res.sendRedirect("payment.jsp?orderId=" + orderId);
+        } else {
+            res.sendRedirect("checkout.jsp?error=true");
+        }
+		
 	}
 
 }

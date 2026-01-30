@@ -5,6 +5,7 @@
 <head>
   <title>Payment</title>
   <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="icon" type="image/png" href="./assets/images/page_favicon.png">
 </head>
 
 <body>
@@ -15,16 +16,18 @@
 
   <h2>Payment Details</h2>
 
-  <form>
+  <form action="process-payment" method="post">
 
-    <input class="input-box" placeholder="Card Number">
-    <input class="input-box" placeholder="Card Holder Name">
-    <input class="input-box" placeholder="Expiry (MM/YY)">
-    <input class="input-box" type="password" placeholder="CVV">
+  	<input type="hidden" name="orderId" value="${param.orderId}">
 
-    <a href="order-confirmation.jsp" class="btn">Pay Now</a>
+  	<input class="input-box" name="cardNumber" placeholder="Card Number" required>
+  	<input class="input-box" name="cardHolder" placeholder="Card Holder Name" required>
+  	<input class="input-box" name="expiry" placeholder="MM/YY" required>
+  	<input class="input-box" type="password" name="cvv" placeholder="CVV" required>
 
-  </form>
+  	<button type="submit" class="btn">Pay Now</button>
+
+</form>
 
 </div>
 

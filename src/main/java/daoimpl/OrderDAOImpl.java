@@ -150,4 +150,37 @@ public class OrderDAOImpl implements OrderDAO {
 		return items;
 	}
 
+	@Override
+	public void updateOrderStatus(int orderId, String status) {
+		// TODO Auto-generated method stub
+		String sql = "UPDATE orders SET status = ? WHERE id = ?";
+
+		try (Connection con = DBConnection.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
+
+			ps.setString(1, status);
+			ps.setInt(2, orderId);
+			ps.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	@Override
+	public double getOrderAmount(int orderId) {
+		double amount = 0;
+		String sql = "SELECT total_amount FROM orders WHERE id = ?";
+		try (Connection con = DBConnection.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
+			ps.setInt(1, orderId);
+			ResultSet rs = ps.executeQuery();
+			if (rs.next()) {
+				amount = rs.getDouble("total_amount");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return amount;
+	}
+
 }

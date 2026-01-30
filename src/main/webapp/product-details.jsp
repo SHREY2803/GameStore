@@ -6,6 +6,7 @@
 <head>
     <title>GameStore | Product Details</title>
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="icon" type="image/png" href="./assets/images/page_favicon.png">
 </head>
 
 <body>

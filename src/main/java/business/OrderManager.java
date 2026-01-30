@@ -21,7 +21,7 @@ public class OrderManager {
 	 * Places an order for a user. Returns true if order is placed successfully.
 	 */
 
-	public boolean placeOrder(int userId) {
+	public int createOrder(int userId) {
 
 		Connection con = null;
 		try {
@@ -33,7 +33,7 @@ public class OrderManager {
 			List<Cart> cartItems = cartDAO.getCartByUser(con, userId);
 
 			if (cartItems == null || cartItems.isEmpty()) {
-				return false;
+				return 0;
 			}
 
 			// 2️⃣ Calculate total
@@ -52,7 +52,7 @@ public class OrderManager {
 
 			if (orderId == 0) {
 				con.rollback();
-				return false;
+				return 0;
 			}
 
 			// 4️⃣ Create order items
@@ -69,25 +69,27 @@ public class OrderManager {
 			orderDAO.addOrderItems(con, orderId, items);
 
 			// 6️⃣ Clear cart (same connection)
-			cartDAO.clearCart(con, userId);
+//			cartDAO.clearCart(con, userId);
 
 			// 7️⃣ Commit
 			con.commit();
-			return true;
+			return orderId;
 
 		} catch (Exception e) {
 			try {
 				if (con != null)
 					con.rollback();
 			} catch (Exception ex) {
+				ex.printStackTrace();
 			}
 			e.printStackTrace();
-			return false;
+			return 0;
 		} finally {
 			try {
 				if (con != null)
 					con.close();
 			} catch (Exception e) {
+				e.printStackTrace();
 			}
 		}
 	}
