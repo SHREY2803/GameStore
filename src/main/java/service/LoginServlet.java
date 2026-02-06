@@ -52,7 +52,7 @@ public class LoginServlet extends HttpServlet {
 
         } else {
             // 5. Invalid login
-            response.sendRedirect("login.jsp?error=invalid");
+            response.sendRedirect("error.jsp");
         }
     }
 }

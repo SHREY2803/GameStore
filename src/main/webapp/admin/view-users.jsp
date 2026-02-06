@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.util.List, model.User"%>
 
 <!DOCTYPE html>
 <html>
@@ -8,15 +9,46 @@
 </head>
 
 <body>
+<jsp:include page="../components/navbar.jsp"/>
 
-<div class="container">
+<div class="container user-container">
 
-  <h2>Registered Users</h2>
+  <h2 class="page-title">Registered Users</h2>
+  
+  <div class="admin-card">
 
-  <div class="game-card">
-    <h3>Demo User</h3>
-    <p>Email: user@example.com</p>
-  </div>
+        <table class="admin-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    
+                </tr>
+            </thead>
+
+            <tbody>
+            <%
+                List<User> users = (List<User>) request.getAttribute("users");
+                for (User u : users) {
+            %>
+                <tr>
+                    <td><%= u.getId() %></td>
+                    <td><%= u.getName() %></td>
+                    <td><%= u.getEmail() %></td>
+                    <td>
+                        <span class="role-badge <%= u.getRole().toLowerCase() %>">
+                            <%= u.getRole() %>
+                        </span>
+                    </td>
+                    
+                </tr>
+            <% } %>
+            </tbody>
+        </table>
+
+    </div>
 
 </div>
 

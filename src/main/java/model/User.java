@@ -1,6 +1,6 @@
 package model;
 
-public class User {
+public class User implements Comparable<User>{
 
     private int id;
     private String name;
@@ -58,4 +58,10 @@ public class User {
     public void setRole(String role) {
         this.role = role;
     }
+
+	@Override
+	public int compareTo(User o) {
+		// TODO Auto-generated method stub
+		return this.id - o.id;
+	}
 }

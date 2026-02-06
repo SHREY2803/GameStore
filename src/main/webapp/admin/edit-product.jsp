@@ -9,22 +9,41 @@
 
 <body>
 
+<jsp:include page="../components/navbar.jsp" />
+
 <div class="container" style="max-width:480px">
 
   <h2>Edit Product</h2>
+  
+   <form action="<%= request.getContextPath() %>/admin/UpdateAdminProduct"
+          method="post"
+          enctype="multipart/form-data">
 
-  <form>
+        <input type="hidden" name="id" value="<%= request.getAttribute("id") %>">
 
-    <input class="input-box" value="Cyber Quest">
-    <input class="input-box" value="Action">
-    <input class="input-box" value="999">
-    <input class="input-box" value="Image URL">
+        <input class="input-box" name="name"
+               value="<%= request.getAttribute("name") %>" required>
 
-    <textarea class="input-box">Updated Description</textarea>
+        <input class="input-box" name="price"
+               value="<%= request.getAttribute("price") %>" required>
+               
+        <input class="input-box" name="category"
+           value="<%= request.getAttribute("category") %>" required>
+           
+        <textarea class="input-box" name="description" required>
+    		<%= request.getAttribute("description") %>
+        </textarea>
 
-    <button class="btn">Update Product</button>
+        <p>Current Image:</p>
+        <img src="<%= request.getContextPath() %>/<%= request.getAttribute("imageUrl") %>"
+             style="width:120px;border-radius:8px">
 
-  </form>
+
+        <input class="input-box" type="file" name="image">
+
+        <button class="btn">Update Product</button>
+
+    </form>
 
 </div>
 

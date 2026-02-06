@@ -5,18 +5,21 @@
 <head>
   <title>Admin Dashboard</title>
   <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="icon" type="image/png"
+	href="./../assets/images/page_favicon.png">
 </head>
 
 <body>
+<jsp:include page="./../components/navbar.jsp" />
 
 <div class="container">
 
   <h2>Admin Dashboard</h2>
 
-  <a class="btn" href="add-product.jsp">Add Product</a>
-  <a class="btn" href="manage-products.jsp">Manage Products</a>
-  <a class="btn" href="view-users.jsp">View Users</a>
-  <a class="btn" href="view-orders.jsp">View Orders</a>
+  
+  <a class="btn" href="<%= request.getContextPath() %>/admin/AdminProduct">Manage Products</a>
+  <a class="btn" href="<%= request.getContextPath() %>/admin/ViewUsers">View Users</a>
+  <a class="btn" href="<%= request.getContextPath() %>/admin/ViewAdminOrders">View Orders</a>
 
 </div>
 

@@ -8,24 +8,29 @@
 </head>
 
 <body>
+<jsp:include page="../components/navbar.jsp" />
 
 <div class="container" style="max-width:480px">
 
   <h2>Add Product</h2>
 
-  <form>
+  <form action="<%= request.getContextPath() %>/admin/AddAdminProduct"
+      method="post"
+      enctype="multipart/form-data">
 
-    <input class="input-box" placeholder="Game Name">
-    <input class="input-box" placeholder="Category">
-    <input class="input-box" placeholder="Price">
-    <input class="input-box" placeholder="Stock Quantity">
-    <input class="input-box" placeholder="Image URL">
+    <input class="input-box" name="name" placeholder="Game Name" required>
 
-    <textarea class="input-box" placeholder="Description"></textarea>
+    <input class="input-box" name="price" placeholder="Price" required>
+    
+    <input class="input-box" name="category" placeholder="Category" required>
+    
+    <input class="input-box" name="description" placeholder="Brief description of game" required>
+
+    <input class="input-box" type="file" name="image" accept="image/*" required>
 
     <button class="btn">Add Product</button>
-
-  </form>
+</form>
+  
 
 </div>
 

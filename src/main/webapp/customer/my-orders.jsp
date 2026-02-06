@@ -10,6 +10,9 @@
 <head>
     <title>My Orders</title>
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="icon" type="image/png" href="./../assets/images/page_favicon.png">
+    <link rel="icon" type="image/png"
+	href="<%= request.getContextPath() %>/assets/images/page_favicon.png">
     <style>
         .order-card {
             background: #1b1e24;

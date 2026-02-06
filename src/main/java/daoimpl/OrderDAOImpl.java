@@ -183,4 +183,79 @@ public class OrderDAOImpl implements OrderDAO {
 		return amount;
 	}
 
+	@Override
+	public List<OrderItem> getPurchasedGames(int userId) {
+		// TODO Auto-generated method stub
+		List<OrderItem> games = new ArrayList<>();
+
+		String query = """
+				    SELECT DISTINCT
+				        p.id AS product_id,
+				        p.name,
+				        p.image_url,
+				        oi.price
+				    FROM orders o
+				    JOIN order_items oi ON o.id = oi.order_id
+				    JOIN products p ON oi.product_id = p.id
+				    WHERE o.user_id = ?
+				      AND o.status = 'PAID'
+				""";
+
+		try (Connection con = DBConnection.getConnection(); PreparedStatement ps = con.prepareStatement(query)) {
+
+			ps.setInt(1, userId);
+			ResultSet rs = ps.executeQuery();
+
+			while (rs.next()) {
+				OrderItem item = new OrderItem();
+				item.setProductId(rs.getInt("product_id"));
+				item.setProductName(rs.getString("name"));
+				item.setImageUrl(rs.getString("image_url"));
+				item.setPrice(rs.getDouble("price"));
+				games.add(item);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return games;
+	}
+
+	@Override
+	public List<Order> getAllAdminOrders() {
+		// TODO Auto-generated method stub
+
+		List<Order> orders = new ArrayList<>();
+		String sql = """
+				    SELECT o.*, u.name AS user_name
+				    FROM orders o
+				    JOIN users u ON o.user_id = u.id
+				    ORDER BY o.order_date DESC
+				""";
+
+		try (Connection con = DBConnection.getConnection();
+				PreparedStatement ps = con.prepareStatement(sql);
+				ResultSet rs = ps.executeQuery()) {
+
+			while (rs.next()) {
+				Order o = new Order();
+				o.setId(rs.getInt("id"));
+				o.setUserId(rs.getInt("user_id"));
+				o.setUserName(rs.getString("user_name"));
+				o.setTotalAmount(rs.getDouble("total_amount"));
+				o.setStatus(rs.getString("status"));
+				o.setOrderDate(rs.getTimestamp("order_date"));
+
+				// fetch items
+				o.setItems(getOrderItems(o.getId()));
+
+				orders.add(o);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return orders;
+	}
+
 }

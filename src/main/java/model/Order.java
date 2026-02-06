@@ -12,6 +12,7 @@ public class Order {
     private String status;
 
     // For display purpose (My Orders)
+    private String userName;
     private List<OrderItem> items;
 
     public int getId() {
@@ -61,4 +62,14 @@ public class Order {
     public void setItems(List<OrderItem> items) {
         this.items = items;
     }
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+    
+    
 }

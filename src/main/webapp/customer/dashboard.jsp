@@ -18,9 +18,9 @@
 		<h2>User Dashboard</h2>
 		<p>Welcome to your account.</p>
 
-		<a class="btn" href="<%= request.getContextPath() %>/my-orders">My Orders</a> <a class="btn"
-			href="profile.jsp">Profile</a> <a class="btn" href="library.jsp">My
-			Game Library</a>
+		<a class="btn" href="<%= request.getContextPath() %>/my-orders">My Orders</a> 
+		<a class="btn" href="<%= request.getContextPath() %>/profile">Profile</a> 
+		<a class="btn" href="<%= request.getContextPath() %>/my-library">My Game Library</a>
 
 	</div>
 

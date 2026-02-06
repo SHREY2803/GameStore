@@ -23,4 +23,7 @@ public interface OrderDAO {
 
 	double getOrderAmount(int orderId);
 
+	List<OrderItem> getPurchasedGames(int userId);
+	
+	List<Order> getAllAdminOrders();
 }

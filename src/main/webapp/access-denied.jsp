@@ -15,7 +15,7 @@
   <h2>Access Denied</h2>
   <p>You are not allowed to access this page.</p>
 
-  <a href="login.jsp" class="btn">Go to Login</a>
+  <a href="login" class="btn">Go to Login</a>
 
 </div>
 

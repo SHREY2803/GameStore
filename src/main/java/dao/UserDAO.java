@@ -1,5 +1,7 @@
 package dao;
 
+import java.util.List;
+
 import model.User;
 
 public interface UserDAO {
@@ -12,4 +14,10 @@ public interface UserDAO {
 
     // Check if email already exists
     boolean isEmailExists(String email);
+    
+    User getUserById(int userId);
+
+    boolean updateProfile(int userId, String name, String email);
+    
+    List<User> getAllUsers();
 }
