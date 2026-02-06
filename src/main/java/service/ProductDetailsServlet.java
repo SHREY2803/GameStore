@@ -34,7 +34,7 @@ public class ProductDetailsServlet extends HttpServlet {
     	 Product product = productManager.getProductById(id);
     	 
     	 if (product == null) {
-             res.sendRedirect("error.jsp");
+             res.sendRedirect("noproduct.jsp");
              return;
          }
     	 
